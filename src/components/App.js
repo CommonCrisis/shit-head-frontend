@@ -3,9 +3,7 @@ import Hand from './Hand'
 
 const App = () => {
     return (
-        <div className='Hand'>
-            <Hand />
-        </div>
+        <Hand />
     );
 }
 
