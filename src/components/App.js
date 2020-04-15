@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Board from './Board';
-
 
 
 const App = () => {
@@ -10,8 +9,7 @@ const App = () => {
 
     const startGame = async (player_1, player_2) => {
         setstartState(true);
-        const response = await axios.get(`http://127.0.0.1:54321/play/new-game?names=${ player_1 }&names=${ player_2 }`
-        );
+        const response = await axios.get(`http://127.0.0.1:54321/play/new-game?names=${player_1}&names=${player_2}`);
         setGameId(response.data.game_id);
     }
 
@@ -19,13 +17,15 @@ const App = () => {
     //     startGame('Hans', 'Gerd');
     // }, [gameId]);
 
-    if (!startState){
+    if (!startState) {
         return (
-            <button onClick={ () => startGame('Hans', 'Gerd')}>Start Game!</button>
+            <button onClick={
+                () => startGame('Hans', 'Gerd')
+            }>Start Game!</button>
         );
     } else {
         return (
-            <Board gameId={ gameId }/>
+            <Board gameId={gameId}/>
         );
     }
 }

@@ -5,4 +5,7 @@ import App from './components/App'
 
 import "./styles.css";
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render (
+    <App/>,
+    document.querySelector('#root')
+);

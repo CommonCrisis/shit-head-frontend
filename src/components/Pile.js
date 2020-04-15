@@ -6,18 +6,38 @@ const Pile = (props) => {
         return (
             <div className='Pile'>
                 <picture>
-                    <img src={require( `../images/${ cardBack }.png` )} alt={'Pile'} width={345/2} height={528/2} />
+                    <img src={
+                            require(`../images/${cardBack}.png`)
+                        }
+                        alt={'Pile'}
+                        width={
+                            345 / 2
+                        }
+                        height={
+                            528 / 2
+                        }/>
                 </picture>
             </div>
         );
     } else {
-    return (
-        <div className='Pile'>
-            <picture>
-                <img src={require( `../images/${ props.pile[0] }.png` )} alt={'Pile'} width={345/2} height={528/2} />
-            </picture>
-        </div>
-    );
+        return (
+            <div className='Pile'>
+                <picture>
+                    <img src={
+                            require(`../images/${
+                                props.pile[0]
+                            }.png`)
+                        }
+                        alt={'Pile'}
+                        width={
+                            345 / 2
+                        }
+                        height={
+                            528 / 2
+                        }/>
+                </picture>
+            </div>
+        );
     }
 }
 
