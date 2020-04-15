@@ -1,32 +1,32 @@
 import React from 'react';
 
 const Card = (props) => {
-    const empty_card = "gray_back"
+    const empty_card = "empty"
 
     if (props.isSelected) {
         return(
-            <div className="CardSelected">
+            <div className="CardSelected" onClick={props.onClick}>
                 <picture>
-                    <img src={require( `../images/${ props.number }.png` )} alt={"asd"} width={345/2} height={528/2} />
+                    <img src={require( `../images/${ props.cardType }.png` )} alt={"Selected Card"} width={345/2} height={528/2} />
                 </picture>
             </div>
         );
     }
 
-    if (props.number) {
+    if (props.cardType) {
         return (
-            <div className="Card">
+            <div className="Card" onClick={props.onClick}>
                 <picture>
-                    <img src={require( `../images/${ props.number }.png` )} alt={"asd"} width={345/2} height={528/2} />
+                    <img src={require( `../images/${ props.cardType }.png` )} alt={"Hand card"} width={345/2} height={528/2} />
                 </picture>
             </div>
         );
     }
     else {
         return (
-            <div className="Card">
+            <div className="Card" onClick={props.onClick}>
                 <picture>
-                <img src={require( `../images/${ empty_card }.png` )} alt={"asd"} width={345/2} height={528/2} />
+                <img src={require( `../images/${ empty_card }.png` )} alt={"Empty hand card"} width={345/2} height={528/2} />
                 </picture>
             </div>
         );

@@ -1,24 +1,25 @@
 import React, { useState} from 'react';
-import Card from './Card'
+import Card from './Card';
 
 const Hand = ( props ) => {
-    const [isSelected, setisSelected] = useState([false, false, false]);
+    const [isSelected, setisSelected] = useState(Array(100).fill(false)); // TODO: init state after first API call
+        
     const selectCard = index => {
         let newArr = [...isSelected];
         newArr[index] = (newArr[index] === true) ? false : true
         setisSelected(newArr)
     }
+
     return (
         <div className="Hand">
-            <div className='Card' onClick={() => selectCard(0)}>
-                <Card number={ '2H' } isSelected={ isSelected[0] } />
-            </div>
-            <div className='Card' onClick={() => selectCard(1)}>
-                <Card number={ '10H' } isSelected={ isSelected[1] } />
-            </div>
-            <div className='Card' onClick={() => selectCard(2)}>
-                <Card number={ '2C' } isSelected={ isSelected[2] } />
-            </div>
+            {props.handCards.map((item, index) => (
+                    <Card
+                        key={index}
+                        cardType={item}
+                        isSelected={isSelected[index]}
+                        onClick={() => selectCard(index)}
+                    />
+            ))}
         </div>
     );
 }
