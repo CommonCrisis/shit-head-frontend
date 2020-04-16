@@ -1,0 +1,42 @@
+.Board {
+    background - color : green;
+    height : 2000 px;
+    width : 2000 px;
+}.BoardCards {
+    display : flex;
+    flex - direction : row;
+    justify - content : flex - start;
+    background - color : red;
+    width : 400 px;
+}.Deck {}.Pile {
+    padding - left : 20 px;
+}.Players {
+    display : flex;
+    flex - direction : column;
+    justify - content : flex - start;
+    background - color : pink;
+    width : 1000 px;
+}.Player {
+    display : flex;
+    flex - direction : row;
+    justify - content : flex - start;
+    background - color : yellow;
+    width : 1000 px;
+}.Card {
+    background - color : brown;
+}.CardSelected {
+    padding - top : 20 px;
+}.Hand {
+    display : flex;
+    flex - direction : row;
+    justify - content : flex - start;
+    background - color : green;
+}
+
+
+/* .Player {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: red;
+} */

@@ -1,11 +1,21 @@
 import React from 'react';
+import {CARDHEIGHT, CARDWIDTH} from '../constants'
 
 const Card = (props) => {
     const empty_card = "empty"
 
+    const cardStyle = {
+        paddingLeft: '5px',
+        paddingTop: '15px'
+    }
+
+    const cardStyleSelected = {
+        paddingLeft: '5px'
+    }
+
     if (props.isSelected) {
         return (
-            <div className="CardSelected"
+            <div className="CardSelected" style={cardStyleSelected}
                 onClick={
                     props.onClick
             }>
@@ -17,10 +27,10 @@ const Card = (props) => {
                         }
                         alt={"Selected Card"}
                         width={
-                            345 / 2
+                            CARDWIDTH
                         }
                         height={
-                            528 / 2
+                            CARDHEIGHT
                         }/>
                 </picture>
             </div>
@@ -29,7 +39,7 @@ const Card = (props) => {
 
     if (props.cardType) {
         return (
-            <div className="Card"
+            <div className="Card" style={cardStyle}
                 onClick={
                     props.onClick
             }>
@@ -41,17 +51,17 @@ const Card = (props) => {
                         }
                         alt={"Hand card"}
                         width={
-                            345 / 2
+                            CARDWIDTH
                         }
                         height={
-                            528 / 2
+                            CARDHEIGHT
                         }/>
                 </picture>
             </div>
         );
     } else {
         return (
-            <div className="Card"
+            <div className="Card" style={cardStyle}
                 onClick={
                     props.onClick
             }>
@@ -61,10 +71,10 @@ const Card = (props) => {
                         }
                         alt={"Empty hand card"}
                         width={
-                            345 / 2
+                            CARDWIDTH
                         }
                         height={
-                            528 / 2
+                            CARDHEIGHT
                         }/>
                 </picture>
             </div>

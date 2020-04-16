@@ -1,20 +1,26 @@
 import React from 'react';
+import {CARDHEIGHT, CARDWIDTH} from '../constants'
 
 const Pile = (props) => {
     const cardBack = 'empty'
+
+    const pileStyle = {
+        paddingLeft: '20px'
+    }
+
     if (!props.pile.length) {
         return (
-            <div className='Pile'>
+            <div className='Pile' style={pileStyle}>
                 <picture>
                     <img src={
                             require(`../images/${cardBack}.png`)
                         }
                         alt={'Pile'}
                         width={
-                            345 / 2
+                            CARDWIDTH
                         }
                         height={
-                            528 / 2
+                            CARDHEIGHT
                         }/>
                 </picture>
             </div>
@@ -25,15 +31,15 @@ const Pile = (props) => {
                 <picture>
                     <img src={
                             require(`../images/${
-                                props.pile[0]
+                                props.pile[props.pile.length - 1]
                             }.png`)
                         }
                         alt={'Pile'}
                         width={
-                            345 / 2
+                            CARDWIDTH
                         }
                         height={
-                            528 / 2
+                            CARDHEIGHT
                         }/>
                 </picture>
             </div>

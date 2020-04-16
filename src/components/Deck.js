@@ -1,7 +1,9 @@
 import React from 'react';
+import {CARDHEIGHT, CARDWIDTH} from '../constants'
 
-const Deck = () => {
-    const cardBack = 'Back'
+const Deck = (props) => {
+    const cardBack = (props.deckCards.length > 0) ? 'Back' : 'empty'
+    
     return (
         <div className='Deck'>
             <picture>
@@ -10,10 +12,10 @@ const Deck = () => {
                     }
                     alt={'Deck'}
                     width={
-                        345 / 2
+                        CARDWIDTH
                     }
                     height={
-                        528 / 2
+                        CARDHEIGHT
                     }/>
             </picture>
         </div>

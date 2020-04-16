@@ -1,23 +1,34 @@
 import React, {useState} from 'react';
 import Card from './Card';
 
+import useWindowDimensions from './WindowSize'
+import {CARDHEIGHT, CARDWIDTH} from '../constants'
+
 const Hand = (props) => {
-    const [isSelected, setisSelected] = useState(Array(100).fill(false)); // TODO: init state after first API call
+    const { height, width } = useWindowDimensions();
+
+    const handStyle = {
+        top: `${20}px`,
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'row',
+        left: `${width*.5-.5*CARDWIDTH*props.handCards.length}px`
+    }
 
     const selectCard = index => {
-        let newArr = [...isSelected];
+        let newArr = [...props.isSelected];
         newArr[index] = (newArr[index] === true) ? false : true
-        setisSelected(newArr)
+        props.setisSelected(newArr)
     }
 
     return (
-        <div className="Hand">
+        <div className="Hand" style={handStyle}>
             {
             props.handCards.map((item, index) => (
                 <Card key={index}
                     cardType={item}
                     isSelected={
-                        isSelected[index]
+                        props.isSelected[index]
                     }
                     onClick={
                         () => selectCard(index)
