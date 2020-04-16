@@ -5,14 +5,16 @@ import useWindowDimensions from './WindowSize'
 import {CARDHEIGHT, CARDWIDTH} from '../constants'
 
 const Hand = (props) => {
-    const { height, width } = useWindowDimensions();
+    const {height, width} = useWindowDimensions();
 
     const handStyle = {
         top: `${20}px`,
         position: 'absolute',
         display: 'flex',
         flexDirection: 'row',
-        left: `${width*.5-.5*CARDWIDTH*props.handCards.length}px`
+        left: `${
+            width * .5 - .5 * CARDWIDTH * props.handCards.length
+        }px`
     }
 
     const selectCard = index => {
@@ -21,21 +23,17 @@ const Hand = (props) => {
         props.setisSelected(newArr)
     }
 
-    return (
-        <div className="Hand" style={handStyle}>
-            {
-            props.handCards.map((item, index) => (
-                <Card key={index}
-                    cardType={item}
-                    isSelected={
-                        props.isSelected[index]
-                    }
-                    onClick={
-                        () => selectCard(index)
-                    }/>
-            ))
-        } </div>
-    );
+    return (<div className="Hand"
+        style={handStyle}> {
+        props.handCards.map((item, index) => (<Card key={index}
+            cardType={item}
+            isSelected={
+                props.isSelected[index]
+            }
+            onClick={
+                () => selectCard(index)
+            }/>))
+    } </div>);
 }
 
 export default Hand

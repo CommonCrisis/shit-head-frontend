@@ -9,41 +9,30 @@ const Pile = (props) => {
     }
 
     if (!props.pile.length) {
-        return (
-            <div className='Pile' style={pileStyle}>
-                <picture>
-                    <img src={
-                            require(`../images/${cardBack}.png`)
-                        }
-                        alt={'Pile'}
-                        width={
-                            CARDWIDTH
-                        }
-                        height={
-                            CARDHEIGHT
-                        }/>
-                </picture>
-            </div>
-        );
+        return (<div className='Pile'
+            style={pileStyle}>
+            <picture>
+                <img src={
+                        require(`../images/${cardBack}.png`)
+                    }
+                    alt={'Pile'}
+                    width={CARDWIDTH}
+                    height={CARDHEIGHT}/>
+            </picture>
+        </div>);
     } else {
-        return (
-            <div className='Pile'>
-                <picture>
-                    <img src={
-                            require(`../images/${
-                                props.pile[props.pile.length - 1]
-                            }.png`)
-                        }
-                        alt={'Pile'}
-                        width={
-                            CARDWIDTH
-                        }
-                        height={
-                            CARDHEIGHT
-                        }/>
-                </picture>
-            </div>
-        );
+        return (<div className='Pile'>
+            <picture>
+                <img src={
+                        require(`../images/${
+                            props.pile[props.pile.length - 1]
+                        }.png`)
+                    }
+                    alt={'Pile'}
+                    width={CARDWIDTH}
+                    height={CARDHEIGHT}/>
+            </picture>
+        </div>);
     }
 }
 

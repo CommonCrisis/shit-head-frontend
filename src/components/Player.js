@@ -7,35 +7,42 @@ import useWindowDimensions from './WindowSize'
 import {CARDHEIGHT, CARDWIDTH} from '../constants'
 
 function Player(props) {
-    const { height, width } = useWindowDimensions();
-    
+    const {height, width} = useWindowDimensions();
+
     const PlayerStyle = {
         // backgroundColor: 'yellow',
-        height: `${CARDHEIGHT+20}px`,
-        width: `${ width - 100 }px`,
-        top: `${height-2*CARDHEIGHT}px`,
+        height: `${
+            CARDHEIGHT + 20
+        }px`,
+        width: `${
+            width - 100
+        }px`,
+        top: `${
+            height - 2 * CARDHEIGHT
+        }px`,
         position: 'absolute',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column'
     }
-    return (
-        <div className="Player" style={ PlayerStyle }>
-            <Hand gameId={
-                    props.gameId
-                }
-                handCards={
-                    props.handCards
-                }
-                setisSelected={props.setisSelected}
-                isSelected={props.isSelected}/>
-            {/* <TableCards gameId={
+    return (<div className="Player"
+        style={PlayerStyle}>
+        <Hand gameId={
+                props.gameId
+            }
+            handCards={
+                props.handCards
+            }
+            setisSelected={
+                props.setisSelected
+            }
+            isSelected={
+                props.isSelected
+            }/> {/* <TableCards gameId={
                     props.gameId
                 }
                 tableCards={
                     props.tableCards
-                }/> */}
-        </div>
-    );
+                }/> */} </div>);
 }
 
 export default Player;
