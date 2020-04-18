@@ -1,18 +1,17 @@
 import React from 'react';
 import Card from './Card';
 
-import useWindowDimensions from './WindowSize';
-import { CARDWIDTH } from '../constants';
+import useWindowDimensions from './windowSize';
+import { CARDWIDTH, CARDHEIGHT } from '../constants';
 
 const Hand = (props) => {
   const { height, width } = useWindowDimensions();
 
   const handStyle = {
-    top: `${20}px`,
-    position: 'absolute',
+    height: `${CARDHEIGHT * 1.1}px`,
     display: 'flex',
     flexDirection: 'row',
-    left: `${width * 0.5 - 0.5 * CARDWIDTH * props.handCards.length}px`,
+    justifyContent: 'center',
   };
 
   const selectCard = (index) => {

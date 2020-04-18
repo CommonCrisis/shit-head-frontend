@@ -1,5 +1,5 @@
 import React from 'react';
-import useWindowDimensions from './WindowSize';
+import useWindowDimensions from './windowSize';
 import { CARDHEIGHT, CARDWIDTH } from '../constants';
 import Card from './Card';
 
@@ -23,24 +23,16 @@ const TableCards = (props) => {
     props.setIsSelectedHidden(newArr);
   };
   // Style
-  const HiddenCardsStyle = {
-    top: `${20}px`,
-    position: 'absolute',
+  const TableCardsStyle = {
+    height: `${CARDHEIGHT * 1.1}px`,
     display: 'flex',
     flexDirection: 'row',
-    // left: `${width * 0.5 - 0.5 * CARDWIDTH * props.hiddenCards.length}px`,
-  };
-  const TopCardsStyle = {
-    top: `${CARDHEIGHT}px`,
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'row',
-    // left: `${width * 0.5 - 0.5 * CARDWIDTH * props.topCards.length}px`,
+    justifyContent: 'center',
   };
 
   if (props.topCards.length > 0) {
     return (
-      <div className="TopCards" style={TopCardsStyle}>
+      <div className="TopCards" style={TableCardsStyle}>
         {props.topCards.map((item, index) => (
           <Card
             key={index}
@@ -54,7 +46,7 @@ const TableCards = (props) => {
     );
   } else {
     return (
-      <div className="HiddenCards" style={HiddenCardsStyle}>
+      <div className="HiddenCards" style={TableCardsStyle}>
         {props.hiddenCards.map((item, index) => (
           <Card
             key={index}

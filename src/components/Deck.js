@@ -1,5 +1,5 @@
 import React from 'react';
-import { CARDHEIGHT, CARDWIDTH } from '../constants';
+import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
 
 const Deck = (props) => {
   const cardBack = props.deckCards.length > 0 ? 'back' : 'empty';
@@ -10,8 +10,8 @@ const Deck = (props) => {
         <img
           src={require(`../images/${cardBack}.png`)}
           alt={'Deck'}
-          width={CARDWIDTH}
-          height={CARDHEIGHT}
+          width={CARDWIDTHBOARD}
+          height={CARDHEIGHTBOARD}
         />
       </picture>
     </div>

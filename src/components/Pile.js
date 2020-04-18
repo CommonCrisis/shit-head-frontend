@@ -1,40 +1,45 @@
 import React from 'react';
-import {CARDHEIGHT, CARDWIDTH} from '../constants'
+import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
+import takePile from './takePile';
 
 const Pile = (props) => {
-    const cardBack = 'empty'
+  const cardBack = 'empty';
 
-    const pileStyle = {
-        paddingLeft: '20px'
-    }
+  const pileStyle = {
+    paddingLeft: '20px',
+  };
 
-    if (!props.pile.length) {
-        return (<div className='Pile'
-            style={pileStyle}>
-            <picture>
-                <img src={
-                        require(`../images/${cardBack}.png`)
-                    }
-                    alt={'Pile'}
-                    width={CARDWIDTH}
-                    height={CARDHEIGHT}/>
-            </picture>
-        </div>);
-    } else {
-        return (<div className='Pile'>
-            <picture>
-                <img src={
-                        require(`../images/${
-                            props.pile[props.pile.length - 1]
-                        }.png`)
-                    }
-                    alt={'Pile'}
-                    width={CARDWIDTH}
-                    height={CARDHEIGHT}/>
-            </picture>
-        </div>);
-    }
-}
+  if (!props.pile.length) {
+    return (
+      <div className="Pile" style={pileStyle}>
+        <picture>
+          <img
+            src={require(`../images/${cardBack}.png`)}
+            alt={'Pile'}
+            width={CARDWIDTHBOARD}
+            height={CARDHEIGHTBOARD}
+          />
+        </picture>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        className="Pile"
+        onClick={() => takePile('Hans', props.gameId, props.setUpdateStauts)}
+        style={pileStyle}
+      >
+        <picture>
+          <img
+            src={require(`../images/${props.pile[props.pile.length - 1]}.png`)}
+            alt={'Pile'}
+            width={CARDWIDTHBOARD}
+            height={CARDHEIGHTBOARD}
+          />
+        </picture>
+      </div>
+    );
+  }
+};
 
-
-export default Pile
+export default Pile;

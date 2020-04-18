@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import useWindowDimensions from './WindowSize';
+import useWindowDimensions from './windowSize';
 
 import Deck from './Deck';
 import Pile from './Pile';
@@ -11,7 +11,6 @@ import { CARDHEIGHT, CARDWIDTH } from '../constants';
 const Board = (props) => {
   // States
   const [pile, setPile] = useState([]);
-  const [update, setUpdate] = useState(false);
   const [handCards, setHandCards] = useState([]);
   const [isSelectedHand, setIsSelectedHand] = useState(Array(30).fill(false));
   const [isSelectedHidden, setIsSelectedHidden] = useState(
@@ -33,20 +32,22 @@ const Board = (props) => {
     setHiddenCards(response.data.game.hidden_cards);
     setPile(response.data.game.pile);
     setDeckCards(response.data.game.deck);
-    setUpdate(true);
+    props.setUpdate(false);
   };
 
   useEffect(() => {
-    updatePlayerCards();
-  }, [update]);
+    if (props.update) {
+      updatePlayerCards();
+    }
+  }, [props.update]);
 
   const playCards = async (listOfCards, cardSelection, selectionSetter) => {
-    const arrayLength = handCards.length == true ? 30 : 3;
+    const arrayLength = handCards.length === true ? 30 : 3;
     if (handCards.length) {
       listOfCards = handCards;
       cardSelection = isSelectedHand;
       selectionSetter = setIsSelectedHand;
-    } else if (!handCards.length & topCards.length) {
+    } else if (!handCards.length && topCards.length) {
       listOfCards = topCards;
       cardSelection = isSelectedTop;
       selectionSetter = setIsSelectedTop;
@@ -63,7 +64,7 @@ const Board = (props) => {
         );
       }
     }
-    setUpdate(!update);
+    props.setUpdate(true);
     selectionSetter(Array(arrayLength).fill(false));
   };
 
@@ -76,27 +77,25 @@ const Board = (props) => {
   };
 
   const BoardCardsStyle = {
-    height: `${CARDHEIGHT}px`,
-    width: `${CARDWIDTH * 2 + 40}px`,
+    height: `${CARDHEIGHT * 1.1}px`,
+    width: `${CARDWIDTH * 2.5}px`,
     display: 'flex',
     flexDirection: 'row',
-    top: `${height / 2 - CARDHEIGHT}px`,
-    left: `${width / 2 - CARDWIDTH * 2 + 40}px`,
+    bottom: `${height * 0.5 + CARDHEIGHT * 0.8}px`,
+    left: `${width / 2 - CARDWIDTH * 2}px`,
     position: 'absolute',
   };
 
   const playCardButtonStyle = {
-    bottom: height / 2.5,
-    left: width / 2,
+    display: 'flex',
     position: 'absolute',
+    // height: `${2.2 * CARDHEIGHT}px`,
+    bottom: `${2.5 * CARDHEIGHT}px`,
+    left: `${width * 0.45}px`,
   };
 
   return (
     <div className="Board" style={boardStyle}>
-      {/* Play a Card button - ugly af */}
-      <button onClick={() => playCards()} style={playCardButtonStyle}>
-        Play Cards...
-      </button>
       {/* Table Picture */}
       <picture>
         <img
@@ -109,8 +108,16 @@ const Board = (props) => {
       {/* Board Cards */}
       <div className="BoardCards" style={BoardCardsStyle}>
         <Deck deckCards={deckCards} />
-        <Pile gameId={props.gameId} pile={pile} />
+        <Pile
+          gameId={props.gameId}
+          pile={pile}
+          setUpdateStauts={props.setUpdate}
+        />
       </div>
+      {/* Play a Card button - ugly af */}
+      <button onClick={() => playCards()} style={playCardButtonStyle}>
+        Play Cards...
+      </button>
       <Player
         gameId={props.gameId}
         // Hand Cards
@@ -126,6 +133,7 @@ const Board = (props) => {
         setIsSelectedTop={setIsSelectedTop}
         isSelectedTop={isSelectedTop}
       />
+      {/* </div> */}
     </div>
   );
 };
