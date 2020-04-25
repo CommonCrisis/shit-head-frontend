@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Fullscreen from 'react-full-screen';
 import Board from './Board';
-import startGame from './startGame';
+import Lobby from './Lobby';
+import InGameLobby from './InGameLobby';
+
 
 const App = () => {
   // States
   const [gameId, setGameId] = useState('testid');
-  const [startState, setstartState] = useState(false);
+  // gameState can be: Lobby, preGame, Game
+  const [gameState, setGameState] = useState('Lobby');
   const [isFull, setIsFull] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [playerName, setPlayerName] = useState('Dummy')
 
   // Styles
 
@@ -16,25 +20,22 @@ const App = () => {
     position: 'absolute',
     top: '50px',
   };
-
-  if (!startState) {
+  if (gameState === 'Lobby') {
     return (
-      <button
-        onClick={() =>
-          startGame(['Hans', 'Gerd'], setstartState, setGameId, setUpdate)
-        }
-      >
-        Start Game!
-      </button>
+      <Lobby playerName={playerName} setPlayerName={setPlayerName} gameId={gameId} setGameId={setGameId} setGameState={setGameState} />
     );
-  } else {
+  } else if (gameState === 'PreGame') {
+    return (
+      <InGameLobby gameId={props.gameId} addedPlayer setAddedPlayer playerName={props.playerName} gameState />
+    );
+  } else if (gameState === 'Game') {
     return (
       <div className="App">
         <button onClick={() => setIsFull(true)} style={fullScreenStyle}>
           Go Fullscreen
         </button>
         <Fullscreen enabled={isFull} onChange={(isFull) => setIsFull(isFull)}>
-          <Board gameId={gameId} update={update} setUpdate={setUpdate} />
+          <Board gameId={gameId} update={update} setUpdate={setUpdate} playerName={playerName} />
         </Fullscreen>
       </div>
     );

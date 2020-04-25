@@ -1,6 +1,6 @@
 import React from 'react';
 import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
-import takePile from './takePile';
+import takePile from '../functions/takePile';
 
 const Pile = (props) => {
   const cardBack = 'empty';

@@ -23,21 +23,21 @@ const Board = (props) => {
 
   // Functions
 
-  const updatePlayerCards = async () => {
+  const updatePlayerCards = async (playerName) => {
     const response = await axios.get(
-      `http://127.0.0.1:54321/play/${props.gameId}/Hans/update`
+      `http://127.0.0.1:54321/play/${props.gameId}/${playerName}/update`
     );
-    setHandCards(response.data.game.hand_cards);
-    setTopCards(response.data.game.top_cards);
-    setHiddenCards(response.data.game.hidden_cards);
-    setPile(response.data.game.pile);
-    setDeckCards(response.data.game.deck);
+    setHandCards(response['data']['game'][playerName]['hand_cards']);
+    setTopCards(response['data']['game'][playerName]['top_cards']);
+    setHiddenCards(response['data']['game'][playerName]['hidden_cards']);
+    setPile(response['data']['game'][playerName]['pile']);
+    setDeckCards(response['data']['game'][playerName]['deck']);
     props.setUpdate(false);
   };
 
   useEffect(() => {
     if (props.update) {
-      updatePlayerCards();
+      updatePlayerCards(props.playerName);
     }
   }, [props.update]);
 
