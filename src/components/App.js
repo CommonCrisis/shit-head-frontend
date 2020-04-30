@@ -35,6 +35,7 @@ const App = () => {
       <div>
         <Lobby {...{ playerName, setPlayerName, gameId, setGameId, setGameState, setUpdatePlayers, setServerMessage }} />
         <SnackbarHandler {...{ serverMessage, setServerMessage }} />
+        <div>Pre Alpha 0.1</div>
       </div >
     );
   } else if (gameState === 'PreGame') {
