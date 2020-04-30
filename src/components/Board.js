@@ -138,7 +138,7 @@ const Board = (props) => {
           setServerMessage={props.setServerMessage}
         />
       </div>
-      <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+      <Button style={playCardButtonStyle} variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
         playCards()
       }>Play Card</Button>
       <Player

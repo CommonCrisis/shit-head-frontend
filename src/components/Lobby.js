@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useWindowDimensions from './windowSize';
 import createGame from '../functions/createGame';
 import joinGame from '../functions/joinGame';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 

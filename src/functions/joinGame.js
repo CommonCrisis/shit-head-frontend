@@ -18,7 +18,7 @@ const joinGame = async (
     "open": true
   })
 
-  if (response['data']['type'] != "success") {
+  if (response['data']['type'] !== "success") {
     return
   } else {
     setPlayerName(playerName);

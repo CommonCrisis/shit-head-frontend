@@ -15,7 +15,6 @@ import GamesIcon from '@material-ui/icons/Games';
 const InGameLobby = (props) => {
     const [players, setPlayers] = useState([]);
 
-
     const startGame = () => {
         // props.setGameState('Game');
         giveCards(props.gameId, props.setServerMessage);

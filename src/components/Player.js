@@ -7,7 +7,7 @@ import useWindowDimensions from './windowSize';
 import { CARDHEIGHT } from '../constants';
 
 function Player(props) {
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const PlayerStyle = {
     display: 'flex',

@@ -25,7 +25,7 @@ const createGame = async (
     "message": response['data']['message'],
     "open": true
   })
-  if (response['data']['type'] != "success") {
+  if (response['data']['type'] !== "success") {
     return
   } else {
     setGameState('PreGame');

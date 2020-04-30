@@ -1,5 +1,5 @@
 import React from 'react';
-import { CARDHEIGHT, CARDWIDTH } from '../constants';
+import { CARDHEIGHT } from '../constants';
 import Card from './Card';
 
 const TableCards = (props) => {
