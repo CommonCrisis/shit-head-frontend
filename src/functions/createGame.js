@@ -1,22 +1,37 @@
 import axios from 'axios';
+import { BEURL } from '../apiSource';
+
 
 const createGame = async (
   host,
   gameId,
   playerNameSetter,
-  setGameState
+  setGameState,
+  setUpdatePlayers,
+  setServerMessage
 ) => {
 
   playerNameSetter(host);
-  await axios({
+  const response = await axios({
     method: 'post',
-    url: 'http://127.0.0.1:54321/play/new_game',
+    url: `${BEURL}/play/new_game`,
     data: {
       game_id: gameId,
       host: host
     }
   });
-  setGameState('PreGame');
+  setServerMessage({
+    'type': response['data']['type'],
+    "message": response['data']['message'],
+    "open": true
+  })
+  if (response['data']['type'] != "success") {
+    return
+  } else {
+    setGameState('PreGame');
+    setUpdatePlayers(true);
+  };
+
 };
 
 export default createGame;

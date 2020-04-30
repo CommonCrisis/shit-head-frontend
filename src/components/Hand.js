@@ -1,11 +1,9 @@
 import React from 'react';
 import Card from './Card';
 
-import useWindowDimensions from './windowSize';
-import { CARDWIDTH, CARDHEIGHT } from '../constants';
+import { CARDHEIGHT } from '../constants';
 
 const Hand = (props) => {
-  const { height, width } = useWindowDimensions();
 
   const handStyle = {
     height: `${CARDHEIGHT * 1.1}px`,

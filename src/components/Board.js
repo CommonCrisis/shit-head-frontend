@@ -7,6 +7,10 @@ import Deck from './Deck';
 import Pile from './Pile';
 import Player from './Player';
 import { CARDHEIGHT, CARDWIDTH } from '../constants';
+import { BEURL } from '../apiSource';
+
+import Button from '@material-ui/core/Button';
+
 
 const Board = (props) => {
   // States
@@ -20,26 +24,41 @@ const Board = (props) => {
   const [topCards, setTopCards] = useState([]);
   const [hiddenCards, setHiddenCards] = useState([]);
   const [deckCards, setDeckCards] = useState([]);
+  const [isTurn, setIsTurn] = useState(false);
 
   // Functions
 
   const updatePlayerCards = async (playerName) => {
     const response = await axios.get(
-      `http://127.0.0.1:54321/play/${props.gameId}/${playerName}/update`
+      `${BEURL}/play/${props.gameId}/${playerName}/update`
     );
-    setHandCards(response['data']['game'][playerName]['hand_cards']);
-    setTopCards(response['data']['game'][playerName]['top_cards']);
-    setHiddenCards(response['data']['game'][playerName]['hidden_cards']);
-    setPile(response['data']['game'][playerName]['pile']);
-    setDeckCards(response['data']['game'][playerName]['deck']);
-    props.setUpdate(false);
+    if (response['data']['type'] === "update") {
+      setHandCards(response['data'][playerName]['hand_cards']);
+      setTopCards(response['data'][playerName]['top_cards']);
+      setHiddenCards(response['data'][playerName]['hidden_cards']);
+      setPile(response['data']['board_cards']['pile']);
+      setDeckCards(response['data']['board_cards']['deck']);
+      setIsTurn(response['data'][playerName]['is_turn']);
+      props.setUpdate(false);
+    } else {
+      props.setServerMessage({
+        'type': response['data']['type'],
+        "message": response['data']['message'],
+        "open": true
+      })
+    };
   };
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      updatePlayerCards(props.playerName);
+    }, 1000);
     if (props.update) {
       updatePlayerCards(props.playerName);
     }
+    return () => clearInterval(interval);
   }, [props.update]);
+
 
   const playCards = async (listOfCards, cardSelection, selectionSetter) => {
     const arrayLength = handCards.length === true ? 30 : 3;
@@ -59,9 +78,14 @@ const Board = (props) => {
 
     for (let i = 0; i < listOfCards.length; i++) {
       if (cardSelection[i]) {
-        await axios.get(
-          `http://127.0.0.1:54321/play/${props.gameId}/Hans/play_card/${listOfCards[i]}`
+        const response = await axios.get(
+          `${BEURL}/play/${props.gameId}/${props.playerName}/play_card/${listOfCards[i]}`
         );
+        props.setServerMessage({
+          'type': response['data']['type'],
+          "message": response['data']['message'],
+          "open": true
+        })
       }
     }
     props.setUpdate(true);
@@ -96,7 +120,6 @@ const Board = (props) => {
 
   return (
     <div className="Board" style={boardStyle}>
-      {/* Table Picture */}
       <picture>
         <img
           src={require(`../images/table.png`)}
@@ -105,35 +128,36 @@ const Board = (props) => {
           height={height}
         />
       </picture>
-      {/* Board Cards */}
       <div className="BoardCards" style={BoardCardsStyle}>
-        <Deck deckCards={deckCards} />
+        <Deck {...{ deckCards }} />
         <Pile
           gameId={props.gameId}
           pile={pile}
           setUpdateStauts={props.setUpdate}
+          playerName={props.playerName}
+          setServerMessage={props.setServerMessage}
         />
       </div>
-      {/* Play a Card button - ugly af */}
-      <button onClick={() => playCards()} style={playCardButtonStyle}>
-        Play Cards...
-      </button>
+      <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+        playCards()
+      }>Play Card</Button>
       <Player
         gameId={props.gameId}
         // Hand Cards
-        handCards={handCards}
-        setIsSelectedHand={setIsSelectedHand}
-        isSelectedHand={isSelectedHand}
-        // Hidden Cards
-        hiddenCards={hiddenCards}
-        setIsSelectedHidden={setIsSelectedHidden}
-        isSelectedHidden={isSelectedHidden}
-        // Top Cards
-        topCards={topCards}
-        setIsSelectedTop={setIsSelectedTop}
-        isSelectedTop={isSelectedTop}
+        {...{
+          handCards,
+          setIsSelectedHand,
+          isSelectedHand,
+          // Hidden Cards
+          hiddenCards,
+          setIsSelectedHidden,
+          isSelectedHidden,
+          // Top Cards
+          topCards,
+          setIsSelectedTop,
+          isSelectedTop
+        }}
       />
-      {/* </div> */}
     </div>
   );
 };

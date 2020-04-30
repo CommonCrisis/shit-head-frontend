@@ -1,19 +1,30 @@
 import axios from 'axios';
+import { BEURL } from '../apiSource';
 
 const joinGame = async (
   playerName,
   gameId,
-  newPlayerSetter,
-  setGameState
+  setGameState,
+  setPlayerName,
+  setUpdatePlayers,
+  setServerMessage
 ) => {
-  // const playerString = players.join('&names=');
-
   const response = await axios.get(
-    `http://127.0.0.1:54321/play/${gameId}/add_player/${playerName}`
+    `${BEURL}/play/${gameId}/add_player/${playerName}`
   );
-  console.log(response);
-  newPlayerSetter(true);
-  setGameState('PreGame');
+  setServerMessage({
+    'type': response['data']['type'],
+    "message": response['data']['message'],
+    "open": true
+  })
+
+  if (response['data']['type'] != "success") {
+    return
+  } else {
+    setPlayerName(playerName);
+    setGameState('PreGame');
+    setUpdatePlayers(true);
+  };
 };
 
 export default joinGame;

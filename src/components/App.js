@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Fullscreen from 'react-full-screen';
 import Board from './Board';
 import Lobby from './Lobby';
 import InGameLobby from './InGameLobby';
+import useLocalStorage from '../functions/useLocalStorage';
+import SnackbarHandler from './SnackbarHandler';
 
 
 const App = () => {
   // States
-  const [gameId, setGameId] = useState('testid');
+  const [gameId, setGameId] = useLocalStorage('gameId');
   // gameState can be: Lobby, preGame, Game
   const [gameState, setGameState] = useState('Lobby');
   const [isFull, setIsFull] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [playerName, setPlayerName] = useState('Dummy')
+  const [playerName, setPlayerName] = useLocalStorage('playerName');
+
+  const [updatePlayers, setUpdatePlayers] = useState(false);
+
+  const [serverMessage, setServerMessage] = useState({
+    'type': 'info',
+    "message": 'Hi there - Welcome to this Shit Head Mulitplayer in pre-alpha state :)',
+    "open": true
+  })
 
   // Styles
 
@@ -22,11 +32,19 @@ const App = () => {
   };
   if (gameState === 'Lobby') {
     return (
-      <Lobby playerName={playerName} setPlayerName={setPlayerName} gameId={gameId} setGameId={setGameId} setGameState={setGameState} />
+      <div>
+        <Lobby {...{ playerName, setPlayerName, gameId, setGameId, setGameState, setUpdatePlayers, setServerMessage }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
+      </div >
     );
   } else if (gameState === 'PreGame') {
     return (
-      <InGameLobby gameId={props.gameId} addedPlayer setAddedPlayer playerName={props.playerName} gameState />
+      <div>
+        <InGameLobby {...{
+          gameId, playerName, setPlayerName, setGameState, setUpdate, setUpdatePlayers, updatePlayers, setServerMessage
+        }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
+      </div>
     );
   } else if (gameState === 'Game') {
     return (
@@ -35,8 +53,9 @@ const App = () => {
           Go Fullscreen
         </button>
         <Fullscreen enabled={isFull} onChange={(isFull) => setIsFull(isFull)}>
-          <Board gameId={gameId} update={update} setUpdate={setUpdate} playerName={playerName} />
+          <Board {...{ gameId, update, setUpdate, playerName, setServerMessage }} />
         </Fullscreen>
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
       </div>
     );
   }

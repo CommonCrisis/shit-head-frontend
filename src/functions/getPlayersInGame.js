@@ -1,13 +1,18 @@
 import axios from 'axios';
+import { BEURL } from '../apiSource';
 
 
-const currentPlayers = async (gameId) => {
+const getPlayersInGame = async (gameId, setPlayers, setGameState, setUpdate) => {
     const currentPlayers = await axios.get(
-        `http://127.0.0.1:54321/play/${gameId}/get_players`
+        `${BEURL}/play/${gameId}/get_players`
     );
-    return currentPlayers;
+    setPlayers(currentPlayers.data.players);
+    if (currentPlayers.data.started === true) {
+        setGameState('Game');
+        setUpdate(true);
+    };
 }
 
 // response should be object {host: name, players: [host, opponent_1, opponent_2 ...]}
 
-export default currentPlayers
+export default getPlayersInGame

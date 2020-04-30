@@ -26,7 +26,7 @@ const Pile = (props) => {
     return (
       <div
         className="Pile"
-        onClick={() => takePile('Hans', props.gameId, props.setUpdateStauts)}
+        onClick={() => takePile(props.playerName, props.gameId, props.setUpdateStauts, props.setServerMessage)}
         style={pileStyle}
       >
         <picture>

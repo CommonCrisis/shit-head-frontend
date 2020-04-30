@@ -10,6 +10,7 @@
 
 # production
 /build
+src/apiSource.js
 
 # misc
 .DS_Store

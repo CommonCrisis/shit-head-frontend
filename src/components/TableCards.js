@@ -1,10 +1,8 @@
 import React from 'react';
-import useWindowDimensions from './windowSize';
 import { CARDHEIGHT, CARDWIDTH } from '../constants';
 import Card from './Card';
 
 const TableCards = (props) => {
-  const { height, width } = useWindowDimensions();
   // Functions
   const selectCardTop = (index) => {
     if (props.handCards.length) {

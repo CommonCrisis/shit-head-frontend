@@ -1,9 +1,15 @@
 import axios from 'axios';
+import { BEURL } from '../apiSource';
 
-const takePile = async (player, gameId, updateStatusSetter) => {
+const takePile = async (player, gameId, updateStatusSetter, setServerMessage) => {
   const response = await axios.get(
-    `http://127.0.0.1:54321/play/${gameId}/${player}/take_pile`
+    `${BEURL}/play/${gameId}/${player}/take_pile`
   );
+  setServerMessage({
+    'type': response['data']['type'],
+    "message": response['data']['message'],
+    "open": true
+  })
   updateStatusSetter(true);
 };
 
