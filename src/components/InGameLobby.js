@@ -33,9 +33,14 @@ const InGameLobby = (props) => {
 
     const useStyles = makeStyles((theme) => ({
         root: {
-            width: '100%',
-            maxWidth: 360,
+            // width: '100%',
+            // maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
+            height: "100vh", /* Magic here */
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column"
         },
     }));
 

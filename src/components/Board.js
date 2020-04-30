@@ -94,10 +94,11 @@ const Board = (props) => {
 
   // Styles
 
-  const { height, width } = useWindowDimensions();
+  const { height, width } = useWindowDimensions(props.isFull);
   const boardStyle = {
     height: `${height}px`,
     width: `${width}px`,
+    backgroundColor: 'red',
   };
 
   const BoardCardsStyle = {
@@ -105,7 +106,7 @@ const Board = (props) => {
     width: `${CARDWIDTH * 2.5}px`,
     display: 'flex',
     flexDirection: 'row',
-    bottom: `${height * 0.5 + CARDHEIGHT * 0.8}px`,
+    bottom: `${height * 0.5 + CARDHEIGHT * 0.9}px`,
     left: `${width / 2 - CARDWIDTH * 2}px`,
     position: 'absolute',
   };
@@ -114,20 +115,28 @@ const Board = (props) => {
     display: 'flex',
     position: 'absolute',
     // height: `${2.2 * CARDHEIGHT}px`,
-    bottom: `${2.5 * CARDHEIGHT}px`,
-    left: `${width * 0.45}px`,
+    bottom: `${2.6 * CARDHEIGHT}px`,
+    left: `${width * 0.47}px`,
   };
+
+  const playCardsStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    // position: 'absolute',
+
+  }
 
   return (
     <div className="Board" style={boardStyle}>
-      <picture>
+      {/* <picture>
         <img
           src={require(`../images/table.png`)}
           alt={'Selected Card'}
           width={width}
           height={height}
         />
-      </picture>
+      </picture> */}
       <div className="BoardCards" style={BoardCardsStyle}>
         <Deck {...{ deckCards }} />
         <Pile
@@ -138,26 +147,28 @@ const Board = (props) => {
           setServerMessage={props.setServerMessage}
         />
       </div>
-      <Button style={playCardButtonStyle} variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
-        playCards()
-      }>Play Card</Button>
-      <Player
-        gameId={props.gameId}
-        // Hand Cards
-        {...{
-          handCards,
-          setIsSelectedHand,
-          isSelectedHand,
-          // Hidden Cards
-          hiddenCards,
-          setIsSelectedHidden,
-          isSelectedHidden,
-          // Top Cards
-          topCards,
-          setIsSelectedTop,
-          isSelectedTop
-        }}
-      />
+      <div style={playCardsStyle}>
+        <Button style={playCardButtonStyle} variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+          playCards()
+        }>Play Card</Button>
+        <Player
+          gameId={props.gameId}
+          // Hand Cards
+          {...{
+            handCards,
+            setIsSelectedHand,
+            isSelectedHand,
+            // Hidden Cards
+            hiddenCards,
+            setIsSelectedHidden,
+            isSelectedHidden,
+            // Top Cards
+            topCards,
+            setIsSelectedTop,
+            isSelectedTop
+          }}
+        />
+      </div>
     </div>
   );
 };

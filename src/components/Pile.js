@@ -6,7 +6,7 @@ const Pile = (props) => {
   const cardBack = 'empty';
 
   const pileStyle = {
-    paddingLeft: '20px',
+    backgroundColor: 'black',
   };
 
   if (!props.pile.length) {

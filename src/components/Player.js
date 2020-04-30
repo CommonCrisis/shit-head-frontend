@@ -7,15 +7,17 @@ import useWindowDimensions from './windowSize';
 import { CARDHEIGHT } from '../constants';
 
 function Player(props) {
-  const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions(true);
 
   const PlayerStyle = {
+    // backgroundColor: 'yellow',
+
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
     width: `${width / 1.5}px`,
-    height: `${2.2 * CARDHEIGHT}px`,
-    bottom: `${0}px`,
+    height: `${2.5 * CARDHEIGHT}px`,
+    bottom: `${10}px`,
     left: `${width * 0.5 + (-0.5 * width) / 1.5}px`,
   };
   return (
