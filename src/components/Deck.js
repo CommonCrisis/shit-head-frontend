@@ -5,7 +5,7 @@ const Deck = (props) => {
   const cardBack = props.deckCards.length > 0 ? 'back' : 'empty';
 
   return (
-    <div className="Deck">
+    <div className="Deck" style={{ backgroundColor: 'blue' }}>
       <picture>
         <img
           src={require(`../images/${cardBack}.png`)}

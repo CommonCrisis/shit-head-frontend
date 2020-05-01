@@ -5,6 +5,7 @@ import Lobby from './Lobby';
 import InGameLobby from './InGameLobby';
 import useLocalStorage from '../functions/useLocalStorage';
 import SnackbarHandler from './SnackbarHandler';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
 
 
 const App = () => {
@@ -28,8 +29,8 @@ const App = () => {
 
   const fullScreenStyle = {
     position: 'absolute',
-    top: '50px',
   };
+
   if (gameState === 'Lobby') {
     return (
       <div>
@@ -50,11 +51,9 @@ const App = () => {
   } else if (gameState === 'Game') {
     return (
       <div className="App">
-        <button onClick={() => setIsFull(true)} style={fullScreenStyle}>
-          Go Fullscreen
-        </button>
+        <FullscreenIcon onClick={() => setIsFull(true)} style={fullScreenStyle} />
         <Fullscreen enabled={isFull} onChange={(isFull) => setIsFull(isFull)}>
-          <Board {...{ gameId, update, setUpdate, playerName, setServerMessage }} />
+          <Board {...{ gameId, update, setUpdate, playerName, setServerMessage, isFull }} />
         </Fullscreen>
         <SnackbarHandler {...{ serverMessage, setServerMessage }} />
       </div>
