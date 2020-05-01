@@ -1,5 +1,5 @@
 import React from 'react';
-import useWindowDimensions from './windowSize';
+import useWindowDimensions from './WindowSize';
 import createGame from '../functions/createGame';
 import joinGame from '../functions/joinGame';
 import TextField from '@material-ui/core/TextField';

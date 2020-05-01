@@ -3,7 +3,7 @@ import Hand from './Hand';
 
 import TableCards from './TableCards';
 
-import useWindowDimensions from './windowSize';
+import useWindowDimensions from './WindowSize';
 import { CARDHEIGHT } from '../constants';
 
 function Player(props) {

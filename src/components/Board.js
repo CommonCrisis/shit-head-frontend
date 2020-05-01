@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import useWindowDimensions from './windowSize';
+import useWindowDimensions from './WindowSize';
 
 import Deck from './Deck';
 import Pile from './Pile';
