@@ -6,7 +6,6 @@ import { CARDHEIGHT } from '../constants';
 const Hand = (props) => {
 
   const handStyle = {
-    height: `${CARDHEIGHT * 1.1}px`,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -26,6 +25,7 @@ const Hand = (props) => {
           key={index}
           cardType={item}
           isSelectedHand={props.isSelectedHand[index]}
+          hidden={false}
           onClick={() => selectCard(index)}
         />
       ))}{' '}

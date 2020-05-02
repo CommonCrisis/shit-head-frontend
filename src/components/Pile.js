@@ -1,42 +1,28 @@
 import React from 'react';
 import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
 import takePile from '../functions/takePile';
+import Card from './Card';
 
 const Pile = (props) => {
   const cardBack = 'empty';
 
-  const pileStyle = {
-    backgroundColor: 'black',
-  };
-
   if (!props.pile.length) {
     return (
-      <div className="Pile" style={pileStyle}>
-        <picture>
-          <img
-            src={require(`../images/${cardBack}.png`)}
-            alt={'Pile'}
-            width={CARDWIDTHBOARD}
-            height={CARDHEIGHTBOARD}
-          />
-        </picture>
-      </div>
+      <Card>
+        cardType={cardBack}
+        hidden={false}
+      </Card>
     );
   } else {
     return (
       <div
         className="Pile"
         onClick={() => takePile(props.playerName, props.gameId, props.setUpdateStauts, props.setServerMessage)}
-        style={pileStyle}
       >
-        <picture>
-          <img
-            src={require(`../images/${props.pile[props.pile.length - 1]}.png`)}
-            alt={'Pile'}
-            width={CARDWIDTHBOARD}
-            height={CARDHEIGHTBOARD}
-          />
-        </picture>
+        <Card
+          cardType={props.pile[props.pile.length - 1]}
+          hidden={false}>
+        </Card>
       </div>
     );
   }

@@ -1,64 +1,36 @@
 import React from 'react';
-import { CARDHEIGHT, CARDWIDTH } from '../constants';
+import { CARDHEIGHT, CARDWIDTH, } from '../constants';
+import cssMapper from '../functions/cardCssMapper';
 
 const Card = (props) => {
-  const empty_card = 'empty';
-  const cardToShow = props.hidden === true ? 'back' : props.cardType;
-  const cardStyle = {
-    paddingLeft: '5px',
-    paddingTop: '15px',
-  };
 
-  const cardStyleSelected = {
-    paddingLeft: '5px',
-  };
-  // Show selected cards
-  if (props.isSelectedHand | props.isSelectedHidden | props.isSelectedTop) {
-    return (
-      <div
-        className="CardSelected"
-        style={cardStyleSelected}
-        onClick={props.onClick}
-      >
-        <picture>
-          <img
-            src={require(`../images/${cardToShow}.png`)}
-            alt={'Selected Card'}
-            width={CARDWIDTH}
-            height={CARDHEIGHT}
-          />
-        </picture>
-      </div>
-    );
-  }
+  const defineCardStyle = (selected, scale) => {
+    var cardImage = "empty"
+    if (props.cardType) {
+      cardImage = props.hidden === true ? 'back' : props.cardType
+    };
 
-  if (props.cardType) {
-    return (
-      <div className="Card" style={cardStyle} onClick={props.onClick}>
-        <picture>
-          <img
-            src={require(`../images/${cardToShow}.png`)}
-            alt={'Hand card'}
-            width={CARDWIDTH}
-            height={CARDHEIGHT}
-          />
-        </picture>
-      </div>
-    );
-  } else {
-    return (
-      <div className="Card" style={cardStyle} onClick={props.onClick}>
-        <picture>
-          <img
-            src={require(`../images/${empty_card}.png`)}
-            alt={'Empty hand card'}
-            width={CARDWIDTH}
-            height={CARDHEIGHT}
-          />
-        </picture>
-      </div>
-    );
-  }
+    var mapper = cssMapper(cardImage)
+
+    const image_source = selected === false ? require(`../images/new_cards.png`) : require(`../images/new_cards_selected.png`)
+
+    return {
+      backgroundImage: `url(${image_source})`,
+      backgroundSize: "1300% 400%", // 13 x 4 cards
+      backgroundPosition: `${(mapper['row'] / 12) * 100}% ${(mapper['column'] / 3) * 100}%`, // 12 --> cards row -1 and 3 --> cards columns - 1
+      height: `${CARDHEIGHT * scale}px`,
+      width: `${CARDWIDTH * scale}px`,
+      marginLeft: "5px",
+    }
+  };
+  const selected = props.isSelectedHand | props.isSelectedHidden | props.isSelectedTop === true ? true : false
+  return (
+    <div
+      style={defineCardStyle(selected, 0.8)}
+      onClick={props.onClick}
+    >
+    </div>
+  );
 };
 
 export default Card;

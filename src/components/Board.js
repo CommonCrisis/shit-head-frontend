@@ -8,6 +8,7 @@ import Pile from './Pile';
 import Player from './Player';
 import { CARDHEIGHT, CARDWIDTH } from '../constants';
 import { BEURL } from '../apiSource';
+import Opponent from './Opponent';
 
 import Button from '@material-ui/core/Button';
 
@@ -94,50 +95,28 @@ const Board = (props) => {
 
   // Styles
 
-  const { height, width } = useWindowDimensions(props.isFull);
-  const boardStyle = {
-    height: `${height}px`,
-    width: `${width}px`,
-    backgroundColor: 'red',
-  };
-
-  const BoardCardsStyle = {
-    height: `${CARDHEIGHT * 1.1}px`,
-    width: `${CARDWIDTH * 2.5}px`,
-    display: 'flex',
-    flexDirection: 'row',
-    bottom: `${height * 0.5 + CARDHEIGHT * 0.9}px`,
-    left: `${width / 2 - CARDWIDTH * 2}px`,
-    position: 'absolute',
-  };
-
   const playCardButtonStyle = {
     display: 'flex',
-    position: 'absolute',
-    // height: `${2.2 * CARDHEIGHT}px`,
-    bottom: `${2.6 * CARDHEIGHT}px`,
-    left: `${width * 0.47}px`,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   };
 
-  const playCardsStyle = {
+  const tableCards = {
     display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    // position: 'absolute',
-
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+  };
 
   return (
-    <div className="Board" style={boardStyle}>
-      {/* <picture>
-        <img
-          src={require(`../images/table.png`)}
-          alt={'Selected Card'}
-          width={width}
-          height={height}
-        />
-      </picture> */}
-      <div className="BoardCards" style={BoardCardsStyle}>
+    <div className="Table">
+      <div>
+        Logo
+  </div>
+      <div>
+        <Opponent />
+      </div>
+      <div className="TableCards" style={tableCards}>
         <Deck {...{ deckCards }} />
         <Pile
           gameId={props.gameId}
@@ -147,10 +126,12 @@ const Board = (props) => {
           setServerMessage={props.setServerMessage}
         />
       </div>
-      <div style={playCardsStyle}>
-        <Button style={playCardButtonStyle} variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+      <div style={playCardButtonStyle}>
+        <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
           playCards()
         }>Play Card</Button>
+      </div>
+      <div>
         <Player
           gameId={props.gameId}
           // Hand Cards
@@ -172,5 +153,7 @@ const Board = (props) => {
     </div>
   );
 };
+
+
 
 export default Board;
