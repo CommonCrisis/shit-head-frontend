@@ -3,21 +3,15 @@ import Hand from './Hand';
 
 import TableCards from './TableCards';
 
-import useWindowDimensions from './windowSize';
-import { CARDHEIGHT } from '../constants';
 
 function Player(props) {
-  const { width } = useWindowDimensions();
 
   const PlayerStyle = {
     display: 'flex',
     flexDirection: 'column',
-    position: 'absolute',
-    width: `${width / 1.5}px`,
-    height: `${2.2 * CARDHEIGHT}px`,
-    bottom: `${0}px`,
-    left: `${width * 0.5 + (-0.5 * width) / 1.5}px`,
+    justifyContent: 'center',
   };
+
   return (
     <div className="Player" style={PlayerStyle}>
       <Hand
