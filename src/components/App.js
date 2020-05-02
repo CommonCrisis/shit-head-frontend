@@ -7,7 +7,6 @@ import useLocalStorage from '../functions/useLocalStorage';
 import SnackbarHandler from './SnackbarHandler';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 
-
 const App = () => {
   // States
   const [gameId, setGameId] = useLocalStorage('gameId');

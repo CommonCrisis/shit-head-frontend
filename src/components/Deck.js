@@ -1,20 +1,18 @@
 import React from 'react';
-import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
+import Card from './Card';
 
 const Deck = (props) => {
   const cardBack = props.deckCards.length > 0 ? 'back' : 'empty';
 
   return (
-    <div className="Deck" style={{ backgroundColor: 'blue' }}>
+    <div className="Deck">
       <picture>
-        <img
-          src={require(`../images/${cardBack}.png`)}
-          alt={'Deck'}
-          width={CARDWIDTHBOARD}
-          height={CARDHEIGHTBOARD}
-        />
+        <Card>
+          cardType={"back"}
+        hidden={true}
+        </Card>
       </picture>
-    </div>
+    </div >
   );
 };
 

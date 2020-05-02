@@ -22,7 +22,6 @@ const TableCards = (props) => {
   };
   // Style
   const TableCardsStyle = {
-    height: `${CARDHEIGHT * 1.1}px`,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
