@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import useWindowDimensions from './WindowSize';
-
 import Deck from './Deck';
 import Pile from './Pile';
 import Player from './Player';
-import { CARDHEIGHT, CARDWIDTH } from '../constants';
 import { BEURL } from '../apiSource';
 import Opponent from './Opponent';
+import { SCALECARD } from '../constants';
+
 
 import Button from '@material-ui/core/Button';
 
@@ -26,6 +24,7 @@ const Board = (props) => {
   const [hiddenCards, setHiddenCards] = useState([]);
   const [deckCards, setDeckCards] = useState([]);
   const [isTurn, setIsTurn] = useState(false);
+  const [opponents, setOpponents] = useState([]);
 
   // Functions
 
@@ -34,12 +33,20 @@ const Board = (props) => {
       `${BEURL}/play/${props.gameId}/${playerName}/update`
     );
     if (response['data']['type'] === "update") {
-      setHandCards(response['data'][playerName]['hand_cards']);
-      setTopCards(response['data'][playerName]['top_cards']);
-      setHiddenCards(response['data'][playerName]['hidden_cards']);
-      setPile(response['data']['board_cards']['pile']);
-      setDeckCards(response['data']['board_cards']['deck']);
-      setIsTurn(response['data'][playerName]['is_turn']);
+      let arr = [];
+      for (let i = 0; i < response['data']['players'].length; i++) {
+        if (response['data']['players'][i]['player_name'] !== playerName) {
+          arr.push(response['data']['players'][i]);
+        } else {
+          setHandCards(response['data']['players'][i]['hand_cards']);
+          setTopCards(response['data']['players'][i]['top_cards']);
+          setHiddenCards(response['data']['players'][i]['hidden_cards']);
+          setPile(response['data']['board_cards']['pile']);
+          setDeckCards(response['data']['board_cards']['deck']);
+          setIsTurn(response['data']['players'][i]['is_turn']);
+        }
+      }
+      setOpponents(arr);
       props.setUpdate(false);
     } else {
       props.setServerMessage({
@@ -99,22 +106,24 @@ const Board = (props) => {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: `${SCALECARD * 100}px`
   };
 
   const tableCards = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    padding: `${SCALECARD * 50}px`
   };
 
   return (
     <div className="Table">
-      <div>
+      {/* <div>
         Logo
-  </div>
+  </div> */}
       <div>
-        <Opponent />
+        <Opponent opponents={opponents} />
       </div>
       <div className="TableCards" style={tableCards}>
         <Deck {...{ deckCards }} />

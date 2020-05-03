@@ -1,8 +1,8 @@
 const cssMapper = (cardString) => {
     if (cardString === "empty") {
-        return { "column": 2, "row": 2 } // change once back
+        return { "column": 4, "row": 0 } // change once back
     } else if (cardString === "back") {
-        return { "column": 2, "row": 2 } // change once empty
+        return { "column": 4, "row": 1 } // change once empty
     }
     var cardElements = cardString.split("_");
     if (cardElements[0] === 13) {

@@ -2,6 +2,8 @@ import React from 'react';
 import Hand from './Hand';
 
 import TableCards from './TableCards';
+import { SCALECARD } from '../constants';
+
 
 
 function Player(props) {

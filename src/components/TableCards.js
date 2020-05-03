@@ -1,5 +1,6 @@
 import React from 'react';
-import { CARDHEIGHT } from '../constants';
+import { SCALECARD } from '../constants';
+
 import Card from './Card';
 
 const TableCards = (props) => {
@@ -25,6 +26,7 @@ const TableCards = (props) => {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    padding: `${SCALECARD * 50}px`
   };
 
   if (props.topCards.length > 0) {
@@ -36,6 +38,7 @@ const TableCards = (props) => {
             cardType={item}
             hidden={false}
             isSelectedTop={props.isSelectedTop[index]}
+            scale={SCALECARD}
             onClick={() => selectCardTop(index)}
           />
         ))}
@@ -50,6 +53,7 @@ const TableCards = (props) => {
             cardType={item}
             hidden={true}
             isSelectedHidden={props.isSelectedHidden[index]}
+            scale={SCALECARD}
             onClick={() => selectCardHidden(index)}
           />
         ))}

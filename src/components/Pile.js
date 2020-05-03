@@ -1,5 +1,6 @@
 import React from 'react';
-import { CARDHEIGHTBOARD, CARDWIDTHBOARD } from '../constants';
+import { SCALECARD } from '../constants';
+
 import takePile from '../functions/takePile';
 import Card from './Card';
 
@@ -8,9 +9,10 @@ const Pile = (props) => {
 
   if (!props.pile.length) {
     return (
-      <Card>
+      <Card
         cardType={cardBack}
         hidden={false}
+        scale={SCALECARD}>
       </Card>
     );
   } else {
@@ -21,7 +23,8 @@ const Pile = (props) => {
       >
         <Card
           cardType={props.pile[props.pile.length - 1]}
-          hidden={false}>
+          hidden={false}
+          scale={SCALECARD}>
         </Card>
       </div>
     );

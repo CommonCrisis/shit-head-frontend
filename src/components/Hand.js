@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './Card';
-
-import { CARDHEIGHT } from '../constants';
+import { SCALECARD } from '../constants';
 
 const Hand = (props) => {
 
@@ -26,6 +25,7 @@ const Hand = (props) => {
           cardType={item}
           isSelectedHand={props.isSelectedHand[index]}
           hidden={false}
+          scale={SCALECARD}
           onClick={() => selectCard(index)}
         />
       ))}{' '}
