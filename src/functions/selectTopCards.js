@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BEURL } from '../apiSource';
 
-const selectTopCards = async (playerName, gameId, handCards, selectedHandCards, setServerMessage) => {
+const selectTopCards = async (playerName, gameId, handCards, selectedHandCards, setIsSelectedHand, setServerMessage) => {
     var topCards = [];
     for (let i = 0; i < handCards.length; i++) {
         if (selectedHandCards[i]) {
@@ -19,7 +19,8 @@ const selectTopCards = async (playerName, gameId, handCards, selectedHandCards, 
         'type': response['data']['type'],
         "message": response['data']['message'],
         "open": true
-    })
+    });
+    setIsSelectedHand(Array(30).fill(false));
 };
 
 export default selectTopCards;

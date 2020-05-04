@@ -38,7 +38,7 @@ const Board = (props) => {
       }>Play Card</Button>
     } else {
       return <Button variant="contained" color={"primary"} onClick={() =>
-        selectTopCards(props.playerName, props.gameId, handCards, isSelectedHand, props.setServerMessage)
+        selectTopCards(props.playerName, props.gameId, handCards, isSelectedHand, setIsSelectedHand, props.setServerMessage)
       }>Set Cards</Button>
     }
 

@@ -20,7 +20,7 @@ const App = () => {
 
   const [serverMessage, setServerMessage] = useState({
     'type': 'info',
-    "message": 'Hi there - Welcome to this Shit Head Mulitplayer in Alpha v0.2 :)',
+    "message": 'Hi there - Welcome to this Shit Head Mulitplayer in Alpha v0.2.1 :)',
     "open": true
   })
 
