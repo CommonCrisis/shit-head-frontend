@@ -4,7 +4,9 @@ import Deck from './Deck';
 import Pile from './Pile';
 import Player from './Player';
 import { BEURL } from '../apiSource';
-import Opponent from './Opponent';
+import OpponentEntry from './OpponentEntry';
+import selectTopCards from '../functions/selectTopCards';
+
 import { SCALECARD } from '../constants';
 
 
@@ -25,8 +27,22 @@ const Board = (props) => {
   const [deckCards, setDeckCards] = useState([]);
   const [isTurn, setIsTurn] = useState(false);
   const [opponents, setOpponents] = useState([]);
+  const [allReady, setAllReady] = useState(false);
 
   // Functions
+
+  const switchButton = () => {
+    if (allReady === true) {
+      return <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+        playCards()
+      }>Play Card</Button>
+    } else {
+      return <Button variant="contained" color={"primary"} onClick={() =>
+        selectTopCards(props.playerName, props.gameId, handCards, isSelectedHand, props.setServerMessage)
+      }>Set Cards</Button>
+    }
+
+  };
 
   const updatePlayerCards = async (playerName) => {
     const response = await axios.get(
@@ -47,6 +63,7 @@ const Board = (props) => {
         }
       }
       setOpponents(arr);
+      setAllReady(response['data']['all_ready']);
       props.setUpdate(false);
     } else {
       props.setServerMessage({
@@ -116,14 +133,23 @@ const Board = (props) => {
     justifyContent: 'center',
     padding: `${SCALECARD * 50}px`
   };
-
+  const opponentsStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: `${SCALECARD * 50}px`
+  };
   return (
     <div className="Table">
       {/* <div>
         Logo
   </div> */}
-      <div>
-        <Opponent opponents={opponents} />
+      <div style={opponentsStyle}>
+        {
+          opponents.map((item) => (
+            <OpponentEntry opponent={item} />
+          ))
+        }
       </div>
       <div className="TableCards" style={tableCards}>
         <Deck {...{ deckCards }} />
@@ -135,10 +161,9 @@ const Board = (props) => {
           setServerMessage={props.setServerMessage}
         />
       </div>
+
       <div style={playCardButtonStyle}>
-        <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
-          playCards()
-        }>Play Card</Button>
+        {switchButton()}
       </div>
       <div>
         <Player

@@ -1,58 +1,63 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import FaceIcon from '@material-ui/icons/Face';
 import Card from './Card';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import faker from 'faker';
 
-function OpponentEntry(props) {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
+}));
+
+
+const OpponentEntry = (props) => {
+    const classes = useStyles();
+    const image_source = require(`../images/logo.png`)
+    // style
+
+    const topCardsHolderStyle = {
+        display: "flex",
+        // justifyContent: "left",
+        alignItems: "center",
+        flexDirection: "row",
+    };
+
+    const opponentStyle = {
+        display: "flex",
+        // justifyContent: "left",
+        alignItems: "center",
+        flexDirection: "column",
+        paddingLeft: "10px"
+    };
+
+    const nameStyle = { padding: "10px", fontWeight: "bold", color: props.opponent['is_turn'] === true ? "blue" : "black" };
+
     return (
-        <div>
-            <ListItem button>
-                <ListItemIcon>
-                    <FaceIcon />
-                </ListItemIcon>
-                <ListItemText primary={props.user["player_name"]} />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-                <ListItemIcon>
-                    {props.user["hand_cards"].map((item, index) => (
+        <div style={opponentStyle}>
+            {/* <Avatar alt="Remy Sharp" src={image_source} className={classes.large} /> */}
+            <span style={nameStyle}>{props.opponent["player_name"]}</span>
+
+            <div className="topCardsHolder" style={topCardsHolderStyle}>
+                {
+                    props.opponent["top_cards"].map((item) => (
                         <Card
-                            key={index}
-                            cardType={item}
-                            hidden={true}
-                            scale={.2}
-                        />))}
-                </ListItemIcon>
-            </ListItem>
-            <Divider />
-            <ListItem button>
-                <ListItemIcon>
-                    {props.user["top_cards"].map((item, index) => (
-                        <Card
-                            key={index}
                             cardType={item}
                             hidden={false}
                             scale={.2}
-                        />))}
-                </ListItemIcon>
-            </ListItem>
-            <Divider />
-            <ListItem button>
-                <ListItemIcon>
-                    {props.user["hidden_cards"].map((item, index) => (
-                        <Card
-                            key={index}
-                            cardType={item}
-                            hidden={true}
-                            scale={.2}
-                        />))}
-                </ListItemIcon>
-            </ListItem>
-            <Divider />
-        </div>);
+                        />))
+                }
+            </div>
+            <span style={{ padding: "10px" }}>Hand: {props.opponent["hand_cards"].length} | Secret: {props.opponent["hidden_cards"].length}</span>
+        </div>
+    );
 };
 
 export default OpponentEntry;
