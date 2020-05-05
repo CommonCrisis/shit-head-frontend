@@ -12,6 +12,8 @@
 /build
 src/apiSource.js
 
+build_frontend
+
 # misc
 .DS_Store
 .env
