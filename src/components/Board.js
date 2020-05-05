@@ -6,10 +6,7 @@ import Player from './Player';
 import { BEURL } from '../apiSource';
 import OpponentEntry from './OpponentEntry';
 import selectTopCards from '../functions/selectTopCards';
-
 import { SCALECARD } from '../constants';
-
-
 import Button from '@material-ui/core/Button';
 
 
@@ -33,7 +30,7 @@ const Board = (props) => {
 
   const switchButton = () => {
     if (allReady === true) {
-      return <Button variant="contained" color={isTurn === true ? "primary" : "secundary"} onClick={() =>
+      return <Button variant="contained" color={isTurn === true ? "primary" : "secondary"} onClick={() =>
         playCards()
       }>Play Card</Button>
     } else {
@@ -85,8 +82,11 @@ const Board = (props) => {
   }, [props.update]);
 
 
-  const playCards = async (listOfCards, cardSelection, selectionSetter) => {
-    const arrayLength = handCards.length === true ? 30 : 3;
+  const playCards = async () => {
+    var listOfCards = []
+    var cardSelection = []
+    var selectionSetter = []
+
     if (handCards.length) {
       listOfCards = handCards;
       cardSelection = isSelectedHand;
@@ -114,7 +114,7 @@ const Board = (props) => {
       }
     }
     props.setUpdate(true);
-    selectionSetter(Array(arrayLength).fill(false));
+    selectionSetter(Array(handCards.length > 0 ? 30 : 3).fill(false));
   };
 
   // Styles

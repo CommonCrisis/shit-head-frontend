@@ -26,6 +26,7 @@ const Hand = (props) => {
           isSelectedHand={props.isSelectedHand[index]}
           hidden={false}
           scale={SCALECARD}
+          cropped={true}
           onClick={() => selectCard(index)}
         />
       ))}{' '}

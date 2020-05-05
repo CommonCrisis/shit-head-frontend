@@ -11,11 +11,12 @@ const Card = (props) => {
     if (props.cardType) {
       cardImage = props.hidden === true ? 'back' : props.cardType
     };
-
     var mapper = cssMapper(cardImage)
 
     const image_source = require(`../images/card_new.png`)
     scale = isHovered === true ? scale + 0.05 : scale
+
+    var margin = props.cropped === true ? `${-(CARDWIDTH * scale * .2)}px` : '5px'
 
     return {
       backgroundImage: `url(${image_source})`,
@@ -23,7 +24,7 @@ const Card = (props) => {
       backgroundPosition: `${(mapper['row'] / 12) * 100}% ${(mapper['column'] / 4) * 100}%`, // 12 --> cards row -1 and 3 --> cards columns - 1
       height: `${CARDHEIGHT * scale}px`,
       width: `${CARDWIDTH * scale}px`,
-      marginLeft: "5px",
+      marginLeft: margin,
       marginTop: selected === true ? "-20px" : "0px"
     }
   };

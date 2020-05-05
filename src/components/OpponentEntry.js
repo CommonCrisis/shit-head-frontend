@@ -28,11 +28,13 @@ const OpponentEntry = (props) => {
             <span style={nameStyle}>{props.opponent["player_name"]}</span>
             <div className="topCardsHolder" style={topCardsHolderStyle}>
                 {
-                    props.opponent["top_cards"].map((item) => (
+                    props.opponent["top_cards"].map((item, index) => (
                         <Card
+                            key={index}
                             cardType={item}
                             hidden={false}
                             scale={.2}
+                            cropped={true}
                         />))
                 }
             </div>
