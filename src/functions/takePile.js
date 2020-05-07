@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BEURL } from '../apiSource';
+import { BEURL } from '../constants';
 
 const takePile = async (player, gameId, updateStatusSetter, setServerMessage) => {
   const response = await axios.get(

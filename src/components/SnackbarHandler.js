@@ -11,6 +11,7 @@ const SnackbarHandler = (props) => {
 
     return (
         <Snackbar
+            anchorOrigin={props.messagePosition}
             autoHideDuration={5000}
             open={props.serverMessage.open}
             onClose={() => props.setServerMessage({

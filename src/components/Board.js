@@ -3,11 +3,13 @@ import axios from 'axios';
 import Deck from './Deck';
 import Pile from './Pile';
 import Player from './Player';
-import { BEURL } from '../apiSource';
+import ChipMessages from './ChipMessages';
 import OpponentEntry from './OpponentEntry';
 import selectTopCards from '../functions/selectTopCards';
-import { SCALECARD } from '../constants';
 import Button from '@material-ui/core/Button';
+import { BEURL, SCALECARD } from '../constants';
+import decryptArray from '../functions/decodeStrings';
+
 
 
 const Board = (props) => {
@@ -25,8 +27,17 @@ const Board = (props) => {
   const [isTurn, setIsTurn] = useState(false);
   const [opponents, setOpponents] = useState([]);
   const [allReady, setAllReady] = useState(false);
+  const [gameMessages, setGameMessages] = useState([])
 
   // Functions
+
+  // const messageUpdater = (newMessages) => {
+  //   let newArr = [...gameMessages];
+  //   setGameMessages(gameMessages);
+  //   // if (newMessages !== newArr) {  }
+  //   // newArr[index] = newArr[index] === true ? false : true;
+
+  // };
 
   const switchButton = () => {
     if (allReady === true) {
@@ -43,7 +54,8 @@ const Board = (props) => {
 
   const updatePlayerCards = async (playerName) => {
     const response = await axios.get(
-      `${BEURL}/play/${props.gameId}/${playerName}/update`
+      `${BEURL}/play/${props.gameId}/${playerName}/update`,
+      { headers: { "Accept-Encoding": "gzip" } }
     );
     if (response['data']['type'] === "update") {
       let arr = [];
@@ -51,16 +63,17 @@ const Board = (props) => {
         if (response['data']['players'][i]['player_name'] !== playerName) {
           arr.push(response['data']['players'][i]);
         } else {
-          setHandCards(response['data']['players'][i]['hand_cards']);
-          setTopCards(response['data']['players'][i]['top_cards']);
-          setHiddenCards(response['data']['players'][i]['hidden_cards']);
-          setPile(response['data']['board_cards']['pile']);
-          setDeckCards(response['data']['board_cards']['deck']);
+          setHandCards(decryptArray(response['data']['players'][i]['hand_cards']));
+          setTopCards(decryptArray(response['data']['players'][i]['top_cards']));
+          setHiddenCards(decryptArray(response['data']['players'][i]['hidden_cards']));
+          setPile(decryptArray(response['data']['board_cards']['pile']));
+          setDeckCards(decryptArray(response['data']['board_cards']['deck']));
           setIsTurn(response['data']['players'][i]['is_turn']);
         }
       }
       setOpponents(arr);
       setAllReady(response['data']['all_ready']);
+      setGameMessages(response['data']['game_log']);
       props.setUpdate(false);
     } else {
       props.setServerMessage({
@@ -133,12 +146,14 @@ const Board = (props) => {
     justifyContent: 'center',
     padding: `${SCALECARD * 50}px`
   };
+
   const opponentsStyle = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: `${SCALECARD * 50}px`
   };
+
   return (
     <div className="Table">
       {/* <div>
@@ -160,6 +175,7 @@ const Board = (props) => {
           playerName={props.playerName}
           setServerMessage={props.setServerMessage}
         />
+        <ChipMessages gameMessages={gameMessages} />
       </div>
 
       <div style={playCardButtonStyle}>

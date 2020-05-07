@@ -20,9 +20,10 @@ const App = () => {
 
   const [serverMessage, setServerMessage] = useState({
     'type': 'info',
-    "message": 'Hi there - Welcome to this Shit Head Mulitplayer in Alpha v0.2.1 :)',
+    "message": 'Hi there - Welcome to this Shit Head Mulitplayer in Alpha v0.3 :)',
     "open": true
   })
+
 
   // Styles
 
@@ -34,8 +35,8 @@ const App = () => {
     return (
       <div>
         <Lobby {...{ playerName, setPlayerName, gameId, setGameId, setGameState, setUpdatePlayers, setServerMessage }} />
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
-        <div>Pre Alpha 0.1</div>
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
+        <div>Pre Alpha v0.3</div>
       </div >
     );
   } else if (gameState === 'PreGame') {
@@ -44,7 +45,7 @@ const App = () => {
         <InGameLobby {...{
           gameId, playerName, setPlayerName, setGameState, setUpdate, setUpdatePlayers, updatePlayers, setServerMessage
         }} />
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
       </div>
     );
   } else if (gameState === 'Game') {
@@ -54,7 +55,7 @@ const App = () => {
         <Fullscreen enabled={isFull} onChange={(isFull) => setIsFull(isFull)}>
           <Board {...{ gameId, update, setUpdate, playerName, setServerMessage, isFull }} />
         </Fullscreen>
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
       </div>
     );
   }

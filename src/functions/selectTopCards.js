@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BEURL } from '../apiSource';
+import { BEURL } from '../constants';
 
 const selectTopCards = async (playerName, gameId, handCards, selectedHandCards, setIsSelectedHand, setServerMessage) => {
     var topCards = [];

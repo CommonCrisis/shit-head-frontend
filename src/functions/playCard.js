@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BEURL } from '../apiSource';
+import { BEURL } from '../constants';
 
 
 const playCard = async (listOfCards, cardSelection, selectionSetter, playerName) => {
