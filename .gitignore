@@ -13,6 +13,7 @@
 src/apiSource.js
 
 build_frontend
+start_dev
 
 # misc
 .DS_Store
