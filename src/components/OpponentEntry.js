@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card';
+import decryptArray from '../functions/decodeStrings';
 
 
 const OpponentEntry = (props) => {
@@ -28,7 +29,7 @@ const OpponentEntry = (props) => {
             <span style={nameStyle}>{props.opponent["player_name"]}</span>
             <div className="topCardsHolder" style={topCardsHolderStyle}>
                 {
-                    props.opponent["top_cards"].map((item, index) => (
+                    decryptArray(props.opponent["top_cards"]).map((item, index) => (
                         <Card
                             key={index}
                             cardType={item}

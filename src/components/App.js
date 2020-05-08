@@ -35,7 +35,7 @@ const App = () => {
     return (
       <div>
         <Lobby {...{ playerName, setPlayerName, gameId, setGameId, setGameState, setUpdatePlayers, setServerMessage }} />
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'bottom', horizontal: 'center' }} />
         <div>Pre Alpha v0.3</div>
       </div >
     );
@@ -45,7 +45,7 @@ const App = () => {
         <InGameLobby {...{
           gameId, playerName, setPlayerName, setGameState, setUpdate, setUpdatePlayers, updatePlayers, setServerMessage
         }} />
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'bottom', horizontal: 'center' }} />
       </div>
     );
   } else if (gameState === 'Game') {
@@ -55,7 +55,7 @@ const App = () => {
         <Fullscreen enabled={isFull} onChange={(isFull) => setIsFull(isFull)}>
           <Board {...{ gameId, update, setUpdate, playerName, setServerMessage, isFull }} />
         </Fullscreen>
-        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'top', horizontal: 'center' }} />
+        <SnackbarHandler {...{ serverMessage, setServerMessage }} messagePosition={{ vertical: 'bottom', horizontal: 'center' }} />
       </div>
     );
   }
