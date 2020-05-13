@@ -14,6 +14,7 @@ import GamesIcon from '@material-ui/icons/Games';
 
 const InGameLobby = (props) => {
     const [players, setPlayers] = useState([]);
+    const [isHost, setIsHost] = useState(false);
 
     const startGame = () => {
         // props.setGameState('Game');
@@ -24,7 +25,7 @@ const InGameLobby = (props) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            getPlayersInGame(props.gameId, setPlayers, props.setGameState, props.setUpdate);
+            getPlayersInGame(props.gameId, setPlayers, props.setGameState, props.setUpdate, setIsHost, props.playerName);
         }, 2000);
         return () => clearInterval(interval);
     }, []);
@@ -67,9 +68,12 @@ const InGameLobby = (props) => {
                     </ListItem>
                 ))}
             </List>
-            <Button variant="contained" color="primary" onClick={() =>
-                startGame()
-            }>Start Game</Button>
+            {isHost &&
+                <Button variant="contained" color="primary" onClick={() =>
+                    startGame()
+                }>Start Game</Button>
+            }
+
         </div >
     );
 }

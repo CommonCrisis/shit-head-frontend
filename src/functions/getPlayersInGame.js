@@ -2,11 +2,14 @@ import axios from 'axios';
 import { BEURL } from '../constants';
 
 
-const getPlayersInGame = async (gameId, setPlayers, setGameState, setUpdate) => {
+const getPlayersInGame = async (gameId, setPlayers, setGameState, setUpdate, setHost, playerName) => {
     const currentPlayers = await axios.get(
         `${BEURL}/play/${gameId}/get_players`
     );
     setPlayers(currentPlayers.data.players);
+    if (playerName === currentPlayers.data.host) {
+        setHost(true)
+    };
     if (currentPlayers.data.started === true) {
         setGameState('Game');
         setUpdate(true);

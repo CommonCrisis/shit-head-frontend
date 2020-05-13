@@ -19,6 +19,7 @@
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-full-screen": "^0.2.4",
+    "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
     "yarn": "^1.22.4"
